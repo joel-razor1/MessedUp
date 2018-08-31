@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import "./index.css";
 import { Card, Row, Col } from "antd";
-import a from "../../Res/user.png";
-import b from "../../Res/edit.png";
-import c from "../../Res/settings.png";
+import a from "../../Res/user.svg";
+import b from "../../Res/edit.svg";
+import c from "../../Res/settings.svg";
 import d from "../../Res/joel.jpg";
 import e from "../../Res/cash.png";
 import { Auth, db } from "../../util/config.js";

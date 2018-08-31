@@ -5,9 +5,9 @@ import "./index.css";
 import a from "../../Res/moon.png";
 import b from "../../Res/sun.png";
 import c from "../../Res/calander.png";
-import d from "../../Res/user.png";
-import e from "../../Res/edit.png";
-import f from "../../Res/settings.png";
+import d from "../../Res/user.svg";
+import e from "../../Res/edit.svg";
+import f from "../../Res/settings.svg";
 
 const { RangePicker } = DatePicker;
 
