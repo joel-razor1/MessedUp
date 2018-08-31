@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import UserCuts from "./components/UserCuts" ;
+import UserCuts from "./components/UserCuts";
 import Auth from "./components/Auth";
 import Home from "./components/Home";
+import Main from "./components/Main";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 class App extends Component {
@@ -20,7 +21,7 @@ class App extends Component {
           <Switch>
             <Route path="/usercuts" component={UserCuts} />
             <Route path="/home" component={Auth} />
-            <Route path="/" component={Home} />
+            <Route path="/" component={Main} />
           </Switch>
         </BrowserRouter>
       </div>

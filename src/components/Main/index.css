@@ -1,0 +1,14 @@
+.main-appbar {
+  width: 100%;
+  height: 130px;
+  text-align: center;
+  background: #04af13; /* Old Browsers */
+  background: -webkit-linear-gradient(
+    top right,
+    #04af13,
+    #034475
+  ); /*Safari 5.1-6*/
+  background: -o-linear-gradient(top right, #04af13, #034475); /*Opera 11.1-12*/
+  background: -moz-linear-gradient(top right, #04af13, #034475); /*Fx 3.6-15*/
+  background: linear-gradient(top right, #04af13, #034475); /*Standard*/
+}

@@ -71,7 +71,7 @@ export default class UserCuts extends Component {
     return (
       <div className="control" style={{ padding: "10px" }}>
         <Card className="car1dis">
-          <p className="bold1" style={{ fontSize: "20px" }}>
+          <p className="bold1" style={{ fontSize: "20px", color: "white" }}>
             Late Mess
           </p>
           <div className="disf1">
@@ -149,19 +149,19 @@ export default class UserCuts extends Component {
           </div>
         </Card>
         <Card className="car2dis">
-          <p className="bold1 " style={{ fontSize: "20px" }}>
+          <p className="bold1 " style={{ fontSize: "20px", color: "white" }}>
             Mess Cut
           </p>
           <div className="disf1">
             <div className="size3">
-              <p className="bold2" style={{ fontSize: "21px" }}>
+              <p className="bold2" style={{ fontSize: "21px", color: "white" }}>
                 FROM
               </p>
               {/* <img onClick={onFromDate}src={c} alt='datepic'/> */}
               {/* <DatePicker onChange={onChange} /> */}
             </div>
             <div className="size4">
-              <p className="bold2" style={{ fontSize: "21px" }}>
+              <p className="bold2" style={{ fontSize: "21px", color: "white" }}>
                 TO
               </p>
               {/* <img src={c} alt='datepic'/> */}
@@ -192,7 +192,7 @@ export default class UserCuts extends Component {
         </Card>
         <br />
         <div className="but3">
-          <p className="grey" style={{ fontSize: "20px" }}>
+          <p className="grey" style={{ fontSize: "20px", color: "white" }}>
             Mess Cut History
           </p>
         </div>
@@ -201,13 +201,15 @@ export default class UserCuts extends Component {
         <div className="car3dis">
           <div className="disf1">
             <div className="size5">
-              <p className="bold1">
+              <p className="bold1" style={{ color: "white" }}>
                 You have reuested mess cut from dd/mm/yy to dd/mm/yy
               </p>
             </div>
             <div className="size6">
-              <p className="bold1">Effective Total</p>
-              <p className="bold2" style={{ fontSize: "25px" }}>
+              <p className="bold1" style={{ color: "white" }}>
+                Effective Total
+              </p>
+              <p className="bold2" style={{ fontSize: "25px", color: "white" }}>
                 3.6
               </p>
             </div>
