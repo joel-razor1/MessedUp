@@ -106,7 +106,7 @@ export default class Home extends Component {
         <div className='billpay'>
           <div className='displayinflx1'>
             <div>
-              <img src={e} alt='cash pic' />
+              <img className="img-home" src={e} alt='cash pic' />
             </div>
             <div className='marginl'>
               <p onClick={this.onClickPay} className='greentext'>Pay Bill</p>
@@ -147,9 +147,9 @@ export default class Home extends Component {
           </div>
           <Card className='bottomtab'>
           <Row style={{marginTop:'-20px'}}>
-            <Col span={8}> < img className='hov' style={{marginLeft:'35px'}} onClick={this.onUserClick} src={a} alt='user pic' /></Col>
-            <Col span={8}> < img className='hov' style={{marginLeft:'35px'}} onClick={this.onEditClick}src={b} alt='edit pic' /></Col>
-            <Col span={8}> < img className='hov' style={{marginLeft:'35px'}} onClick={this.onSettingsClick}src={c} alt='settings pic' /></Col>
+            <Col span={8}> < img className='hov' className="img-home" style={{marginLeft:'35px'}} onClick={this.onUserClick} src={a} alt='user pic' /></Col>
+            <Col span={8}> < img className='hov' className="img-home" style={{marginLeft:'35px'}} onClick={this.onEditClick}src={b} alt='edit pic' /></Col>
+            <Col span={8}> < img className='hov' className="img-home" style={{marginLeft:'35px'}} onClick={this.onSettingsClick}src={c} alt='settings pic' /></Col>
           </Row>
         </Card>
       </div>
