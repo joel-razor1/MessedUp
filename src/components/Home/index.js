@@ -1,12 +1,21 @@
 import React, { Component } from "react";
 import "./index.css";
 import { Card, Row, Col } from "antd";
+import FontIcon from 'material-ui/FontIcon';
+import {BottomNavigation, BottomNavigationItem} from 'material-ui/BottomNavigation';
+import Paper from 'material-ui/Paper';
+import { Icon } from 'antd' ;
+import IconLocationOn from 'material-ui/svg-icons/communication/location-on';
 import a from "../../Res/user.svg";
 import b from "../../Res/edit.svg";
 import c from "../../Res/settings.svg";
 import d from "../../Res/joel.jpg";
 import e from "../../Res/cash.png";
 import { Auth, db } from "../../util/config.js";
+
+const recentsIcon = <Icon type="home" /> ;
+const favoritesIcon = <Icon type="edit" /> ;
+const nearbyIcon = <Icon type="setting" /> ;
 
 export default class Home extends Component {
   constructor(props) {
@@ -22,9 +31,12 @@ export default class Home extends Component {
       userMessNo: "",
       userEmail: "",
       userDep: "",
-      uid: "dtqYpqgw79XcmaBucfY4XYcp88m1"
+      uid: "dtqYpqgw79XcmaBucfY4XYcp88m1" ,
+      selectedIndex: 0,
     };
   }
+  
+  select = (index) => this.setState({selectedIndex: index});
 
   onUserClick = () => {
     console.log("user clicked");
@@ -159,7 +171,6 @@ export default class Home extends Component {
           <h2 style={{ color: "white" }}>{this.state.notices[0].title}</h2>
           <p style={{ color: "white" }}>{this.state.notices[0].msg}</p>
         </div>
-
         <div className="fatherroundone">
           <div className="roundone2">
             <div className="marginless">
@@ -178,43 +189,25 @@ export default class Home extends Component {
           <h2>{this.state.notices[1].title}</h2>
           <p style={{ color: "white" }}>{this.state.notices[1].msg}</p>
         </div>
-        <Card className="bottomtab">
-          <Row style={{ marginTop: "-20px" }}>
-            <Col span={8}>
-              {" "}
-              <img
-                className="hov"
-                className="img-home"
-                style={{ marginLeft: "35px" }}
-                onClick={this.onUserClick}
-                src={a}
-                alt="user pic"
-              />
-            </Col>
-            <Col span={8}>
-              {" "}
-              <img
-                className="hov"
-                className="img-home"
-                style={{ marginLeft: "35px" }}
-                onClick={this.onEditClick}
-                src={b}
-                alt="edit pic"
-              />
-            </Col>
-            <Col span={8}>
-              {" "}
-              <img
-                className="hov"
-                className="img-home"
-                style={{ marginLeft: "35px" }}
-                onClick={this.onSettingsClick}
-                src={c}
-                alt="settings pic"
-              />
-            </Col>
-          </Row>
-        </Card>
+        <Paper zDepth={1} className="bottomtab" style={{paddingLeft:"0px"}}>
+          <BottomNavigation selectedIndex={this.state.selectedIndex}>
+            <BottomNavigationItem
+              label="Recents"
+              icon={recentsIcon}
+              onClick={() => this.select(0)}
+            />
+            <BottomNavigationItem
+              label="Favorites"
+              icon={favoritesIcon}
+              onClick={() => this.select(1)}
+            />
+            <BottomNavigationItem
+              label="Nearby"
+              icon={nearbyIcon}
+              onClick={() => this.select(2)}
+            />
+          </BottomNavigation>
+        </Paper>
       </div>
     );
   }

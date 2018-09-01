@@ -1,5 +1,10 @@
 import React, { Component } from "react";
 import { Card, Button, Row, Col, DatePicker, Modal, Tabs, Radio } from "antd";
+import FontIcon from 'material-ui/FontIcon';
+import {BottomNavigation, BottomNavigationItem} from 'material-ui/BottomNavigation';
+import Paper from 'material-ui/Paper';
+import { Icon } from 'antd' ;
+import IconLocationOn from 'material-ui/svg-icons/communication/location-on';
 import { Redirect } from "react-router-dom";
 import "./index.css";
 import a from "../../Res/moon.png";
@@ -11,15 +16,22 @@ import f from "../../Res/settings.svg";
 
 const { RangePicker } = DatePicker;
 
+const recentsIcon = <Icon type="home" /> ;
+const favoritesIcon = <Icon type="edit" /> ;
+const nearbyIcon = <Icon type="setting" /> ;
+
 export default class UserCuts extends Component {
   constructor(props) {
     super(props);
     this.state = {
       mode: "top",
       loading: false,
-      visible: false
+      visible: false ,
+      selectedIndex: 0,
     };
   }
+  
+  select = (index) => this.setState({selectedIndex: index});
 
   showModal = () => {
     this.setState({
@@ -69,7 +81,7 @@ export default class UserCuts extends Component {
     const { visible, loading } = this.state;
 
     return (
-      <div className="control" style={{ padding: "10px" }}>
+      <div className="control">
         <Card className="car1dis">
           <p className="bold1" style={{ fontSize: "20px", color: "white" }}>
             Late Mess
@@ -196,7 +208,6 @@ export default class UserCuts extends Component {
             Mess Cut History
           </p>
         </div>
-
         <br />
         <div className="car3dis">
           <div className="disf1">
@@ -215,40 +226,25 @@ export default class UserCuts extends Component {
             </div>
           </div>
         </div>
-        <div className="bottomtab">
-          <Row style={{ marginTop: "-8px" }}>
-            <Col span={8}>
-              {" "}
-              <img
-                className="hov"
-                style={{ marginLeft: "35px" }}
-                onClick={this.onUserClick}
-                src={d}
-                alt="user pic"
-              />
-            </Col>
-            <Col span={8}>
-              {" "}
-              <img
-                className="hov"
-                style={{ marginLeft: "35px" }}
-                onClick={this.onEditClick}
-                src={e}
-                alt="edit pic"
-              />
-            </Col>
-            <Col span={8}>
-              {" "}
-              <img
-                className="hov"
-                style={{ marginLeft: "35px" }}
-                onClick={this.onSettingsClick}
-                src={f}
-                alt="settings pic"
-              />
-            </Col>
-          </Row>
-        </div>
+        <Paper zDepth={1} className="bottomtab" style={{paddingLeft:"0px"}}>
+          <BottomNavigation selectedIndex={this.state.selectedIndex}>
+            <BottomNavigationItem
+              label="Recents"
+              icon={recentsIcon}
+              onClick={() => this.select(0)}
+            />
+            <BottomNavigationItem
+              label="Favorites"
+              icon={favoritesIcon}
+              onClick={() => this.select(1)}
+            />
+            <BottomNavigationItem
+              label="Nearby"
+              icon={nearbyIcon}
+              onClick={() => this.select(2)}
+            />
+          </BottomNavigation>
+        </Paper>
       </div>
     );
   }
