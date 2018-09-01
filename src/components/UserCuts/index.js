@@ -1,10 +1,13 @@
 import React, { Component } from "react";
 import { Card, Button, Row, Col, DatePicker, Modal, Tabs, Radio } from "antd";
-import FontIcon from 'material-ui/FontIcon';
-import {BottomNavigation, BottomNavigationItem} from 'material-ui/BottomNavigation';
-import Paper from 'material-ui/Paper';
-import { Icon } from 'antd' ;
-import IconLocationOn from 'material-ui/svg-icons/communication/location-on';
+import FontIcon from "material-ui/FontIcon";
+import {
+  BottomNavigation,
+  BottomNavigationItem
+} from "material-ui/BottomNavigation";
+import Paper from "material-ui/Paper";
+import { Icon } from "antd";
+import IconLocationOn from "material-ui/svg-icons/communication/location-on";
 import { Redirect } from "react-router-dom";
 import "./index.css";
 import a from "../../Res/moon.png";
@@ -15,10 +18,12 @@ import e from "../../Res/edit.svg";
 import f from "../../Res/settings.svg";
 
 const { RangePicker } = DatePicker;
+const RadioButton = Radio.Button;
+const RadioGroup = Radio.Group;
 
-const recentsIcon = <Icon type="home" /> ;
-const favoritesIcon = <Icon type="edit" /> ;
-const nearbyIcon = <Icon type="setting" /> ;
+const recentsIcon = <Icon type="home" />;
+const favoritesIcon = <Icon type="edit" />;
+const nearbyIcon = <Icon type="setting" />;
 
 export default class UserCuts extends Component {
   constructor(props) {
@@ -26,12 +31,12 @@ export default class UserCuts extends Component {
     this.state = {
       mode: "top",
       loading: false,
-      visible: false ,
-      selectedIndex: 0,
+      visible: false,
+      selectedIndex: 0
     };
   }
-  
-  select = (index) => this.setState({selectedIndex: index});
+
+  select = index => this.setState({ selectedIndex: index });
 
   showModal = () => {
     this.setState({
@@ -86,65 +91,47 @@ export default class UserCuts extends Component {
           <p className="bold1" style={{ fontSize: "20px", color: "white" }}>
             Late Mess
           </p>
-          <div className="disf1">
-            <div className="size1">
-              <div className="disf1">
-                <Button
-                  size="large"
-                  className="bold1"
-                  style={{
-                    backgroundImage:
-                      "linear-gradient(to right, #6f1a8f, #6b1a8b, #671a87, #641983, #60197f)",
-                    border: "0px",
-                    color: "white"
-                  }}
-                >
-                  <img className="img-user-cuts" src={b} alt="sun pic" />
-                  Lunch
-                </Button>
-                {/* <div><img src={b} alt='sun pic'/></div> */}
-                {/* <div className='bold1' style={{paddingLeft:'10px'}}><p>Lunch</p></div> */}
+          <RadioGroup
+            defaultValue="a"
+            style={{
+              width: "100%",
+              display: "flex",
+              justifyContent: "center"
+            }}
+          >
+            <RadioButton
+              value="lunch"
+              style={{
+                backgroundImage:
+                  "linear-gradient(to right, #6f1a8f, #6b1a8b, #671a87, #641983, #60197f)",
+                color: "white",
+                padding: 8,
+                height: 35,
+                width: "45%"
+              }}
+            >
+              <div style={{ display: "flex", justifyContent: "center" }}>
+                <img className="img-user-cuts" src={b} alt="sun pic" />
+                Lunch
               </div>
-            </div>
-            <div className="size2">
-              <div className="disf1">
-                {/* <div><p className='bold1' style={{paddingRight:'10px'}}>Dinner</p></div> */}
-                {/* <div><img src={a} alt='moon pic' onClick={this.showModal}/></div> */}
-                {/* <Modal
-                  visible={visible}
-                  title="Dinner Mess Cut"
-                  onOk={this.handleOk}
-                  onCancel={this.handleCancel}
-                  footer={[
-                    <Button key="back" onClick={this.handleCancel}>Return</Button>,
-                    <Button key="submit" type="primary" loading={loading} onClick={this.handleOk}>
-                      Yes
-                    </Button>,
-                  ]}
-              >
-                <p className='modtext'>Are you sure you want a late mess?</p>
-
-              </Modal> */}
-                {/* <Radio.Group onChange={this.handleModeChange} value={mode} style={{ marginBottom: 8 }}>
-                  <Radio.Button value="top">Horizontal</Radio.Button>
-                  <Radio.Button value="left">Vertical</Radio.Button>
-                </Radio.Group> */}
-                <Button
-                  size="large"
-                  className="bold1"
-                  style={{
-                    backgroundImage:
-                      "linear-gradient(to right, #561771, #51156b, #4d1265, #481060, #440e5a)",
-                    border: "0px",
-                    color: "white"
-                  }}
-                >
-                  Dinner
-                  <img className="img-user-cuts" src={a} alt="moon pic" />
-                </Button>
+            </RadioButton>
+            <RadioButton
+              value="dinner"
+              style={{
+                backgroundImage:
+                  "linear-gradient(to right, #6f1a8f, #6b1a8b, #671a87, #641983, #60197f)",
+                color: "white",
+                padding: 8,
+                height: 35,
+                width: "45%"
+              }}
+            >
+              <div style={{ display: "flex", justifyContent: "center" }}>
+                <img className="img-user-cuts" src={a} alt="sun pic" />
+                Dinner
               </div>
-            </div>
-          </div>
+            </RadioButton>
+          </RadioGroup>
           <br />
           <br />
           <div className="but">
@@ -226,7 +213,7 @@ export default class UserCuts extends Component {
             </div>
           </div>
         </div>
-        <Paper zDepth={1} className="bottomtab" style={{paddingLeft:"0px"}}>
+        <Paper zDepth={1} className="bottomtab" style={{ paddingLeft: "0px" }}>
           <BottomNavigation selectedIndex={this.state.selectedIndex}>
             <BottomNavigationItem
               label="Recents"
@@ -248,4 +235,45 @@ export default class UserCuts extends Component {
       </div>
     );
   }
+}
+
+{
+  /* <div className="disf1">
+            <div className="size1">
+              <div className="disf1">
+                <Button
+                  size="large"
+                  className="bold1"
+                  style={{
+                    backgroundImage:
+                      "linear-gradient(to right, #6f1a8f, #6b1a8b, #671a87, #641983, #60197f)",
+                    border: "0px",
+                    color: "white"
+                  }}
+                >
+                  <img className="img-user-cuts" src={b} alt="sun pic" />
+                  Lunch
+                </Button>
+              
+                </div>
+                </div>
+                <div className="size2">
+                  <div className="disf1">
+                    
+                    <Button
+                      size="large"
+                      className="bold1"
+                      style={{
+                        backgroundImage:
+                          "linear-gradient(to right, #561771, #51156b, #4d1265, #481060, #440e5a)",
+                        border: "0px",
+                        color: "white"
+                      }}
+                    >
+                      Dinner
+                      <img className="img-user-cuts" src={a} alt="moon pic" />
+                    </Button>
+                  </div>
+                </div>
+              </div> */
 }
