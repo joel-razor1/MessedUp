@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./index.css";
 import { Card, Row, Col } from "antd";
 import FontIcon from 'material-ui/FontIcon';
+import { Link } from 'react-router-dom';
 import {BottomNavigation, BottomNavigationItem} from 'material-ui/BottomNavigation';
 import Paper from 'material-ui/Paper';
 import { Icon } from 'antd' ;
@@ -192,17 +193,17 @@ export default class Home extends Component {
         <Paper zDepth={1} className="bottomtab" style={{paddingLeft:"0px"}}>
           <BottomNavigation selectedIndex={this.state.selectedIndex}>
             <BottomNavigationItem
-              label="Recents"
+              label="Home"
               icon={recentsIcon}
               onClick={() => this.select(0)}
             />
             <BottomNavigationItem
-              label="Favorites"
+              label="Preferences"
               icon={favoritesIcon}
               onClick={() => this.select(1)}
             />
             <BottomNavigationItem
-              label="Nearby"
+              label="Settings"
               icon={nearbyIcon}
               onClick={() => this.select(2)}
             />

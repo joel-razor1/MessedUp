@@ -43,8 +43,7 @@
 }
 
 .ant-calendar-range {
-  width: 380px;
-  margin-left: -35px;
+  width: 100% ;
 }
 
 .size5 {
