@@ -1,12 +1,15 @@
 import React, { Component } from "react";
 import "./index.css";
 import Home from "../Home";
-import logo from "../../Res/logo_text.png";
+import logo from "../../Res/logo_text_w.png";
 export default class extends Component {
   render() {
     return (
       <div className="">
-        <div className="main-appbar" />
+        <div className="main-appbar">
+          <img src={logo} />
+        </div>
+
         <div
           style={{
             width: "100%",
