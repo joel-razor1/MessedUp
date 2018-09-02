@@ -7,13 +7,7 @@ import b from "../../Res/edit.svg";
 import c from "../../Res/settings.svg";
 import d from "../../Res/joel.jpg";
 import e from "../../Res/cash.png";
-import { Auth, db } from "../../util/config.js";
-
-
-
-
-
-
+import { auth, db } from "../../util/config.js";
 
 export default class Home extends Component {
   constructor(props) {
@@ -29,12 +23,9 @@ export default class Home extends Component {
       userMessNo: "",
       userEmail: "",
       userDep: "",
-      uid: "dtqYpqgw79XcmaBucfY4XYcp88m1" ,
-      
+      uid: ""
     };
   }
-  
-
 
   onUserClick = () => {
     console.log("user clicked");
@@ -51,10 +42,31 @@ export default class Home extends Component {
   onClickPay = () => {
     console.log(" pay clicked");
   };
-  
+
   componentDidMount() {
     var that = this;
     // importing notices
+
+    auth.onAuthStateChanged(function(user) {
+      if (user) {
+        console.log("user", user.uid);
+
+        that.setState({ uid: user.uid });
+
+        db.ref("users")
+          .child(user.uid)
+          .on("value", function(data) {
+            that.setState({
+              userName: data.val().name,
+              userEmail: data.val().email,
+              userMobile: data.val().mob,
+              userMessNo: data.val().messno,
+              userDep: data.val().dep
+            });
+          });
+      }
+    });
+
     db.ref("sahara")
       .child("notices")
       .on("value", function(data) {
@@ -64,18 +76,6 @@ export default class Home extends Component {
         });
         that.setState({ notices: notices.reverse() });
         console.log("notices", notices);
-      });
-
-    db.ref("users")
-      .child("dtqYpqgw79XcmaBucfY4XYcp88m1")
-      .on("value", function(data) {
-        that.setState({
-          userName: data.val().name,
-          userEmail: data.val().email,
-          userMobile: data.val().mob,
-          userMessNo: data.val().messno,
-          userDep: data.val().dep
-        });
       });
   }
 
@@ -184,10 +184,9 @@ export default class Home extends Component {
           </div>
         </div>
         <div className="notice2">
-          <h2>{this.state.notices[1].title}</h2>
+          <h2 style={{ color: "white" }}>{this.state.notices[1].title}</h2>
           <p style={{ color: "white" }}>{this.state.notices[1].msg}</p>
         </div>
-        
       </div>
     );
   }

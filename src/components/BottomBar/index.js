@@ -38,7 +38,7 @@ export default class extends Component {
             <BottomNavigationItem
               label="Home"
               icon={recentsIcon}
-              onClick={() => this.select("/", 0)}
+              onClick={() => this.select("/home", 0)}
             />
             <BottomNavigationItem
               label="Mess Cuts"

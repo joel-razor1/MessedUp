@@ -85,6 +85,14 @@ export default class extends Component {
             db.ref("users")
               .child(that.state.uid)
               .set(data);
+            db.ref("users")
+              .child(user.uid)
+              .set(data);
+            db.ref(that.state.mess)
+              .child("users")
+              .child("mess")
+              .child(that.state.messno)
+              .set(data);
 
             // ...
           })
@@ -135,7 +143,7 @@ export default class extends Component {
         console.log("uid", uid);
 
         self.setState({ uid, email, spin: true });
-        self.userExist();
+        self.newUser();
       })
       .catch(function(error) {
         var errorMessage = error.message;
@@ -143,15 +151,15 @@ export default class extends Component {
       });
   }
 
-  userExist = () => {
+  newUser = () => {
     console.log("ethi");
     var that = this;
     db.ref("users")
       .child(this.state.uid)
       .on("value", function(data) {
-        if (data.val() === null) {
-          that.setState({ newUser: true, spin: false });
-        }
+        data.val() === null
+          ? that.setState({ newUser: true, spin: false })
+          : that.setState({ redirect: true, spin: false });
       });
   };
 

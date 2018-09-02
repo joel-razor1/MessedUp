@@ -16,11 +16,11 @@ ReactDOM.render(
   <MuiThemeProvider>
     <Router>
       <Switch>
-        <Route path="/login" exact component={Auth} />
+        <Route path="/" exact component={Auth} />
         <App>
           <Main>
             <Switch>
-              <Route path="/" exact component={Home} />
+              <Route path="/home" exact component={Home} />
               <Route path="/settings" exact component={Settings} />
               <Route path="/usercuts" exact component={UserCuts} />
             </Switch>

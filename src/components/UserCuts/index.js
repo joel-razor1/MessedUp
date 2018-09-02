@@ -33,7 +33,9 @@ export default class UserCuts extends Component {
       mode: "top",
       loading: false,
       visible: false,
-      selectedIndex: 0
+      selectedIndex: 0,
+      from: "",
+      to: ""
     };
   }
 
@@ -78,13 +80,17 @@ export default class UserCuts extends Component {
 
   onTo = (e, date) => {
     console.log("to:", date);
+    this.setState({ to: date });
   };
 
   onFrom = (e, date) => {
     console.log("from", date);
+    this.setState({ from: date });
   };
 
   componentDidMount() {}
+
+  onMessCut = () => {};
 
   render() {
     // const { mode } = this.state;
@@ -206,6 +212,7 @@ export default class UserCuts extends Component {
                 "linear-gradient(to right, #7a209c, #6b1c8a, #5d1878, #4f1466, #411055)",
               fontWeight: "bold"
             }}
+            onClick={this.onMessCut}
           >
             Request
           </div>
