@@ -7,7 +7,7 @@ export default class extends Component {
     return (
       <div className="">
         <div className="main-appbar">
-          <img src={logo} style={{width:'15%'}}/>
+          <img src={logo} />
         </div>
 
         <div
