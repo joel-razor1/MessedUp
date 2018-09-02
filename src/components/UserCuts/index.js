@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Card, Button, Row, Col, DatePicker, Modal, Tabs, Radio } from "antd";
+import { Card, Button, Row, Col, Modal, Tabs, Radio } from "antd";
 import FontIcon from "material-ui/FontIcon";
 import {
   BottomNavigation,
@@ -16,8 +16,9 @@ import c from "../../Res/calander.png";
 import d from "../../Res/user.svg";
 import e from "../../Res/edit.svg";
 import f from "../../Res/settings.svg";
+import DatePicker from "material-ui/DatePicker";
 
-const { RangePicker } = DatePicker;
+//const { RangePicker } = DatePicker;
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
 
@@ -75,8 +76,12 @@ export default class UserCuts extends Component {
     this.setState({ visible: false });
   };
 
-  onChange = (date, dateString) => {
-    console.log(date, dateString);
+  onTo = (e, date) => {
+    console.log("to:", date);
+  };
+
+  onFrom = (e, date) => {
+    console.log("from", date);
   };
 
   componentDidMount() {}
@@ -88,7 +93,14 @@ export default class UserCuts extends Component {
     return (
       <div className="control">
         <div className="car1dis">
-          <p className="bold1" style={{ fontSize: "20px", color: "white" ,alignSelf:'flex-start'}}>
+          <p
+            className="bold1"
+            style={{
+              fontSize: "20px",
+              color: "white",
+              alignSelf: "flex-start"
+            }}
+          >
             Late Mess
           </p>
           <RadioGroup
@@ -105,69 +117,98 @@ export default class UserCuts extends Component {
                 backgroundImage:
                   "linear-gradient(to right, #6f1a8f, #6b1a8b, #671a87, #641983, #60197f)",
                 color: "white",
-                
+
                 height: 35,
                 width: "45%"
               }}
             >
-              
-                <img className="img-user-cuts" src={b} alt="sun pic" />
-                Lunch
-              
+              <img className="img-user-cuts" src={b} alt="sun pic" />
+              Lunch
             </RadioButton>
-            <hr style={{width:'90px',border:'0px',backgroundColor:'#fff',height:'1px',transform:'rotate(90deg)'}}/>
+            <hr
+              style={{
+                width: "90px",
+                border: "0px",
+                backgroundColor: "#fff",
+                height: "1px",
+                transform: "rotate(90deg)"
+              }}
+            />
             <RadioButton
               value="dinner"
               style={{
                 backgroundImage:
                   "linear-gradient(to right, #6f1a8f, #6b1a8b, #671a87, #641983, #60197f)",
                 color: "white",
-                
+
                 height: 35,
                 width: "45%"
               }}
             >
-              
-                <img className="img-user-cuts" src={a} alt="sun pic" />
-                Dinner
-             
+              <img className="img-user-cuts" src={a} alt="sun pic" />
+              Dinner
             </RadioButton>
           </RadioGroup>
           <br />
           <br />
 
-            <div
-              className="but1"
-              style={{
-                color:
-                  "linear-gradient(to right, #7a209c, #6b1c8a, #5d1878, #4f1466, #411055)",
-                fontWeight: "bold"
-              }}
-            >
-              Save my Food
-            </div>
-
+          <div
+            className="but1"
+            style={{
+              color:
+                "linear-gradient(to right, #7a209c, #6b1c8a, #5d1878, #4f1466, #411055)",
+              fontWeight: "bold"
+            }}
+          >
+            Save my Food
+          </div>
         </div>
         <div className="car2dis">
           <p className="bold1 " style={{ fontSize: "20px", color: "white" }}>
             Mess Cut
           </p>
-          <div className='fromto'>
-              FROM 
-              <hr style={{width:'50px',border:'0px',backgroundColor:'#fff',height:'1px',transform:'rotate(90deg)'}}/>
-              TO
+          <div className="fromto">
+            <DatePicker
+              onChange={this.onFrom}
+              textFieldStyle={{
+                width: "100%",
+                color: "white"
+              }}
+              inputStyle={{ color: "white" }}
+              floatingLabelText="From"
+              autoOk={true}
+            />
+            <hr
+              style={{
+                width: "50px",
+                border: "0px",
+                backgroundColor: "#fff",
+                height: "1px",
+                transform: "rotate(90deg)"
+              }}
+            />
+            <DatePicker
+              textFieldStyle={{ width: "100%", color: "white" }}
+              onChange={this.onTo}
+              inputStyle={{ color: "white" }}
+              floatingLabelText="To"
+              autoOk={true}
+            />
           </div>
           <br />
           <br />
-          <div>
-            <RangePicker size="large" onChange={this.onChange} />
-          </div>
+          <div style={{ display: "flex" }} />
           <br />
-         <div className="but1 but2" style={{
-                color:
-                  "linear-gradient(to right, #7a209c, #6b1c8a, #5d1878, #4f1466, #411055)",
-                fontWeight: "bold"
-              }}>Request</div>
+          <div
+            className="but1 but2"
+            style={{
+              color:
+                "linear-gradient(to right, #7a209c, #6b1c8a, #5d1878, #4f1466, #411055)",
+              fontWeight: "bold"
+            }}
+          >
+            Request
+          </div>
         </div>
         <br />
         <div className="but3">
