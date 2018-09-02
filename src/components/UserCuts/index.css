@@ -18,30 +18,30 @@
   flex-direction: column;
   padding: 20px;
   margin: auto;
-  justify-content: center;
+  margin-top: 10px;
+  justify-content: space-between;
   align-items: center;
+  min-height: 200px;
 }
-.but1{
+.but1 {
   background-color: #fff;
   padding: 8px;
   border-radius: 18px;
-  box-shadow: 0 0 0 0 rgba(0,0,0,0.2);
-    transition: 0.3s;
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
 }
-.but2{
-  width:100px;
+.but2 {
+  width: 100px;
   text-align: center;
 }
-.but1:hover{
-  color:rgba(14, 44, 214, 0.267);
+.but1:hover {
+  color: rgba(14, 44, 214, 0.267);
   cursor: pointer;
-  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 }
-
 .disf1 {
   display: inline-flex;
 }
-
 .size1 {
   padding-right: 30px;
   border-right: 1px solid white;
@@ -59,12 +59,10 @@
   padding-left: 50px;
   height: 30px;
 }
-
 .ant-calendar-range {
   width: 380px;
   margin-left: -35px;
 }
-
 .size5 {
   padding-right: 0px;
   border-right: 1px solid white;
@@ -75,8 +73,6 @@
   padding-left: 5px;
   height: 70px;
 }
-
-
 .but3 {
   width: 320px;
   margin: auto;
@@ -93,7 +89,6 @@
     #dc0077,
     #e91d64
   );
-  
   display: flex;
   flex-direction: column;
   padding: 20px;
@@ -101,6 +96,7 @@
   justify-content: center;
   align-items: center;
   margin: auto;
+  min-height: 200px;
   margin-top: 40px;
 }
 .car3dis {
@@ -125,13 +121,12 @@
 .modtext {
   color: black;
 }
-.fromto{
+.fromto {
   display: flex;
   color: #fff;
   font-size: 18px;
   font-weight: 700;
 }
-
 .bold1 {
   font-weight: bold;
 }
@@ -150,7 +145,7 @@
   align-items: center;
   justify-content: space-around;
   padding-top: 10px;
-  padding-left: 0px ;
+  padding-left: 0px;
 }
 .hov {
   width: 25px;
