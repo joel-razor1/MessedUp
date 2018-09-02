@@ -7,6 +7,7 @@
     "babel-plugin-import": "^1.8.0",
     "firebase": "^5.4.1",
     "font-awesome": "^4.7.0",
+    "history": "^4.7.2",
     "material-ui": "^0.20.2",
     "react": "^16.4.0",
     "react-app-rewired": "^1.5.2",

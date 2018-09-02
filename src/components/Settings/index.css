@@ -1,0 +1,16 @@
+.settings-main{
+    min-width:360px;
+    max-width:400px;
+    height:100vh;
+    margin:auto;
+    text-align: center;
+    background-image: linear-gradient(to right top, #5d0b8a, #0058c5, #008ce4, #00b9ed, #12e3eb);
+    
+    color:white;
+}
+.settings-sub{
+    display:flex;
+    justify-content: space-between;
+    color:white;
+    padding:30px;
+}

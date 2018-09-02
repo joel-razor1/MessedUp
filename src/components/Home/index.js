@@ -1,12 +1,7 @@
 import React, { Component } from "react";
 import "./index.css";
 import { Card, Row, Col } from "antd";
-import FontIcon from 'material-ui/FontIcon';
-import { Link } from 'react-router-dom';
-import {BottomNavigation, BottomNavigationItem} from 'material-ui/BottomNavigation';
-import Paper from 'material-ui/Paper';
-import { Icon } from 'antd' ;
-import IconLocationOn from 'material-ui/svg-icons/communication/location-on';
+
 import a from "../../Res/user.svg";
 import b from "../../Res/edit.svg";
 import c from "../../Res/settings.svg";
@@ -14,9 +9,11 @@ import d from "../../Res/joel.jpg";
 import e from "../../Res/cash.png";
 import { Auth, db } from "../../util/config.js";
 
-const recentsIcon = <Icon type="home" /> ;
-const favoritesIcon = <Icon type="edit" /> ;
-const nearbyIcon = <Icon type="setting" /> ;
+
+
+
+
+
 
 export default class Home extends Component {
   constructor(props) {
@@ -33,11 +30,11 @@ export default class Home extends Component {
       userEmail: "",
       userDep: "",
       uid: "dtqYpqgw79XcmaBucfY4XYcp88m1" ,
-      selectedIndex: 0,
+      
     };
   }
   
-  select = (index) => this.setState({selectedIndex: index});
+
 
   onUserClick = () => {
     console.log("user clicked");
@@ -54,7 +51,7 @@ export default class Home extends Component {
   onClickPay = () => {
     console.log(" pay clicked");
   };
-
+  
   componentDidMount() {
     var that = this;
     // importing notices
@@ -190,25 +187,7 @@ export default class Home extends Component {
           <h2>{this.state.notices[1].title}</h2>
           <p style={{ color: "white" }}>{this.state.notices[1].msg}</p>
         </div>
-        <Paper zDepth={1} className="bottomtab" style={{paddingLeft:"0px"}}>
-          <BottomNavigation selectedIndex={this.state.selectedIndex}>
-            <BottomNavigationItem
-              label="Home"
-              icon={recentsIcon}
-              onClick={() => this.select(0)}
-            />
-            <BottomNavigationItem
-              label="Preferences"
-              icon={favoritesIcon}
-              onClick={() => this.select(1)}
-            />
-            <BottomNavigationItem
-              label="Settings"
-              icon={nearbyIcon}
-              onClick={() => this.select(2)}
-            />
-          </BottomNavigation>
-        </Paper>
+        
       </div>
     );
   }

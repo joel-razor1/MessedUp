@@ -87,8 +87,8 @@ export default class UserCuts extends Component {
 
     return (
       <div className="control">
-        <Card className="car1dis">
-          <p className="bold1" style={{ fontSize: "20px", color: "white" }}>
+        <div className="car1dis">
+          <p className="bold1" style={{ fontSize: "20px", color: "white" ,alignSelf:'flex-start'}}>
             Late Mess
           </p>
           <RadioGroup
@@ -105,37 +105,38 @@ export default class UserCuts extends Component {
                 backgroundImage:
                   "linear-gradient(to right, #6f1a8f, #6b1a8b, #671a87, #641983, #60197f)",
                 color: "white",
-                padding: 8,
+                
                 height: 35,
                 width: "45%"
               }}
             >
-              <div style={{ display: "flex", justifyContent: "center" }}>
+              
                 <img className="img-user-cuts" src={b} alt="sun pic" />
                 Lunch
-              </div>
+              
             </RadioButton>
+            <hr style={{width:'90px',border:'0px',backgroundColor:'#fff',height:'1px',transform:'rotate(90deg)'}}/>
             <RadioButton
               value="dinner"
               style={{
                 backgroundImage:
                   "linear-gradient(to right, #6f1a8f, #6b1a8b, #671a87, #641983, #60197f)",
                 color: "white",
-                padding: 8,
+                
                 height: 35,
                 width: "45%"
               }}
             >
-              <div style={{ display: "flex", justifyContent: "center" }}>
+              
                 <img className="img-user-cuts" src={a} alt="sun pic" />
                 Dinner
-              </div>
+             
             </RadioButton>
           </RadioGroup>
           <br />
           <br />
-          <div className="but">
-            <Button
+
+            <div
               className="but1"
               style={{
                 color:
@@ -144,28 +145,17 @@ export default class UserCuts extends Component {
               }}
             >
               Save my Food
-            </Button>
-          </div>
-        </Card>
-        <Card className="car2dis">
+            </div>
+
+        </div>
+        <div className="car2dis">
           <p className="bold1 " style={{ fontSize: "20px", color: "white" }}>
             Mess Cut
           </p>
-          <div className="disf1">
-            <div className="size3">
-              <p className="bold2" style={{ fontSize: "21px", color: "white" }}>
-                FROM
-              </p>
-              {/* <img onClick={onFromDate}src={c} alt='datepic'/> */}
-              {/* <DatePicker onChange={onChange} /> */}
-            </div>
-            <div className="size4">
-              <p className="bold2" style={{ fontSize: "21px", color: "white" }}>
-                TO
-              </p>
-              {/* <img src={c} alt='datepic'/> */}
-              {/* <DatePicker onChange={onChange} /> */}
-            </div>
+          <div className='fromto'>
+              FROM 
+              <hr style={{width:'50px',border:'0px',backgroundColor:'#fff',height:'1px',transform:'rotate(90deg)'}}/>
+              TO
           </div>
           <br />
           <br />
@@ -173,22 +163,12 @@ export default class UserCuts extends Component {
             <RangePicker size="large" onChange={this.onChange} />
           </div>
           <br />
-          <div className="but2">
-            <Button
-              type="default"
-              className="but1"
-              style={{
-                fontWeight: "bolder",
-                fontSize: "20px",
-                paddingLeft: "25px",
-                paddingLeft: "25px"
-              }}
-            >
-              {" "}
-              REQUEST
-            </Button>
-          </div>
-        </Card>
+         <div className="but1 but2" style={{
+                color:
+                  "linear-gradient(to right, #7a209c, #6b1c8a, #5d1878, #4f1466, #411055)",
+                fontWeight: "bold"
+              }}>Request</div>
+        </div>
         <br />
         <div className="but3">
           <p className="grey" style={{ fontSize: "20px", color: "white" }}>
