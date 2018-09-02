@@ -17,7 +17,7 @@ export default class extends Component {
             marginTop: -50
           }}
         >
-          <Home />
+          {this.props.children}
         </div>
       </div>
     );
