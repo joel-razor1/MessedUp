@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./index.css";
 import { List, ListItem } from "material-ui/List";
 import { auth, db } from "../../../util/config";
-import { Icon, Popconfirm } from "antd";
+import { Icon, Popconfirm, Spin } from "antd";
 
 export default class extends Component {
   constructor(props) {
@@ -11,7 +11,8 @@ export default class extends Component {
       uid: "J71tA5o0C9OyUXzBEtXpNBndX052",
       mess: "sahara",
       messno: "444",
-      cuts: []
+      cuts: [],
+      loading: true
     };
   }
 
@@ -32,7 +33,7 @@ export default class extends Component {
           };
           cuts.push(d);
         });
-        that.setState({ cuts: cuts.reverse() });
+        that.setState({ cuts: cuts.reverse(), loading: false });
         console.log("cuts", cuts);
       });
   }
@@ -59,65 +60,79 @@ export default class extends Component {
   render() {
     return (
       <div className="history-main">
-        <List>
-          {this.state.cuts.map(item => {
-            return (
-              <div className="history-items" key={item.key}>
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "space-around"
-                  }}
-                >
+        {this.state.loading ? (
+          <div
+            style={{
+              margin: "auto",
+              maxWidth: "95%",
+              width: 320,
+              display: "flex",
+              justifyContent: "center"
+            }}
+          >
+            <Spin />
+          </div>
+        ) : (
+          <List>
+            {this.state.cuts.map(item => {
+              return (
+                <div className="history-items" key={item.key}>
                   <div
                     style={{
                       display: "flex",
-                      flexDirection: "column",
-                      justifyContent: "center"
+                      flexDirection: "row",
+                      justifyContent: "space-around"
                     }}
                   >
-                    <h3>From:</h3>
-
-                    {this.getDate(item.from)}
-                  </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      justifyContent: "center"
-                    }}
-                  >
-                    <h3>To:</h3>
-                    {this.getDate(item.to)}
-                  </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      justifyContent: "center"
-                    }}
-                  >
-                    <h3>Days:</h3>
-
-                    <div style={{ textAlign: "center" }}>{item.count}</div>
-                  </div>
-
-                  <div className="history-delete">
-                    <Popconfirm
-                      title="Are you sure？"
-                      okText="Yes"
-                      cancelText="No"
-                      onConfirm={this.onDelete.bind(this, item.key)}
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "center"
+                      }}
                     >
-                      <Icon type="delete" />
-                    </Popconfirm>
+                      <h3>From:</h3>
+
+                      {this.getDate(item.from)}
+                    </div>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "center"
+                      }}
+                    >
+                      <h3>To:</h3>
+                      {this.getDate(item.to)}
+                    </div>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "center"
+                      }}
+                    >
+                      <h3>Days:</h3>
+
+                      <div style={{ textAlign: "center" }}>{item.count}</div>
+                    </div>
+
+                    <div className="history-delete">
+                      <Popconfirm
+                        title="Are you sure？"
+                        okText="Yes"
+                        cancelText="No"
+                        onConfirm={this.onDelete.bind(this, item.key)}
+                      >
+                        <Icon type="delete" />
+                      </Popconfirm>
+                    </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
-        </List>
+              );
+            })}
+          </List>
+        )}
       </div>
     );
   }
