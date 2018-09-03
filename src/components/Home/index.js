@@ -23,7 +23,9 @@ export default class Home extends Component {
       userMessNo: "",
       userEmail: "",
       userDep: "",
-      uid: ""
+      mess: "",
+      uid: "",
+      loading: true
     };
   }
 
@@ -61,23 +63,28 @@ export default class Home extends Component {
               userEmail: data.val().email,
               userMobile: data.val().mob,
               userMessNo: data.val().messno,
-              userDep: data.val().dep
+              userDep: data.val().dep,
+              mess: data.val().mess
             });
+            that.fetchNotices();
           });
       }
     });
+  }
 
-    db.ref("sahara")
+  fetchNotices = () => {
+    var that = this;
+    db.ref(this.state.mess)
       .child("notices")
       .on("value", function(data) {
         var notices = [];
         data.forEach(function(child) {
           notices.push(child.val());
         });
-        that.setState({ notices: notices.reverse() });
+        that.setState({ notices: notices.reverse(), loading: false });
         console.log("notices", notices);
       });
-  }
+  };
 
   render() {
     const monthNames = [
@@ -151,42 +158,68 @@ export default class Home extends Component {
         <div className="center">
           <p className="blacktext">Notice</p>
         </div>
-        <div className="fatherroundone">
-          <div className="roundone">
-            <div className="marginless">
-              <text className="roundtextAUG">
-                {monthNames[date1.getMonth()]}
-              </text>
+        {this.state.loading ? (
+          <div>
+            <Card
+              loading
+              style={{
+                width: 320,
+                maxWidth: "95%",
+                margin: "auto",
+                minHeight: 120
+              }}
+            />
+            <br />
+            <Card
+              loading
+              style={{
+                width: 320,
+                maxWidth: "95%",
+                margin: "auto",
+                minHeight: 120
+              }}
+            />
+          </div>
+        ) : (
+          <div>
+            <div className="fatherroundone">
+              <div className="roundone">
+                <div className="marginless">
+                  <text className="roundtextAUG">
+                    {monthNames[date1.getMonth()]}
+                  </text>
+                </div>
+                <div className="marginless1">
+                  <p style={{ color: "white" }} className="roundtext15">
+                    {date1.getDate()}
+                  </p>
+                </div>
+              </div>
             </div>
-            <div className="marginless1">
-              <p style={{ color: "white" }} className="roundtext15">
-                {date1.getDate()}
-              </p>
+            <div className="notice1">
+              <h2 style={{ color: "white" }}>{this.state.notices[0].title}</h2>
+              <p style={{ color: "white" }}>{this.state.notices[0].msg}</p>
+            </div>
+            <div className="fatherroundone">
+              <div className="roundone2">
+                <div className="marginless">
+                  <text className="roundtextAUG">
+                    {monthNames[date2.getMonth()]}
+                  </text>
+                </div>
+                <div className="marginless1">
+                  <p style={{ color: "white" }} className="roundtext15">
+                    {date2.getDate()}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="notice2">
+              <h2 style={{ color: "white" }}>{this.state.notices[1].title}</h2>
+              <p style={{ color: "white" }}>{this.state.notices[1].msg}</p>
             </div>
           </div>
-        </div>
-        <div className="notice1">
-          <h2 style={{ color: "white" }}>{this.state.notices[0].title}</h2>
-          <p style={{ color: "white" }}>{this.state.notices[0].msg}</p>
-        </div>
-        <div className="fatherroundone">
-          <div className="roundone2">
-            <div className="marginless">
-              <text className="roundtextAUG">
-                {monthNames[date2.getMonth()]}
-              </text>
-            </div>
-            <div className="marginless1">
-              <p style={{ color: "white" }} className="roundtext15">
-                {date2.getDate()}
-              </p>
-            </div>
-          </div>
-        </div>
-        <div className="notice2">
-          <h2 style={{ color: "white" }}>{this.state.notices[1].title}</h2>
-          <p style={{ color: "white" }}>{this.state.notices[1].msg}</p>
-        </div>
+        )}
       </div>
     );
   }
