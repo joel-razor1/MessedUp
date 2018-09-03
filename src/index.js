@@ -11,33 +11,25 @@ import Auth from "./components/Auth";
 import Home from "./components/Home";
 import Main from "./components/Main";
 import Settings from "./components/Settings";
-import error from "./components/Error404"
-
-
-
+import error from "./components/Error404";
 
 ReactDOM.render(
   <MuiThemeProvider>
     <Router>
       <Switch>
-
         <Route path="/" exact component={Auth} />
-
-        
-        
-
+        <Route path="/404" component={error} />
         <App>
-          <Main>
-            <Switch>
-              <Route path="/home" exact component={Home} />
-              <Route path="/settings" exact component={Settings} />
-              <Route path="/usercuts" exact component={UserCuts} />
-              <Route component={error}/>
-            </Switch>
-          </Main>
-          
+          <Switch>
+            <Main>
+              <Switch>
+                <Route path="/home" exact component={Home} />
+                <Route path="/settings" exact component={Settings} />
+                <Route path="/usercuts" exact component={UserCuts} />
+              </Switch>
+            </Main>
+          </Switch>
         </App>
-        
       </Switch>
     </Router>
   </MuiThemeProvider>,

@@ -335,29 +335,14 @@ export default class UserCuts extends Component {
         </div>
         <br />
 
-        <div className="but3">
-          <p className="grey" style={{ fontSize: "20px", color: "white" }}>
+        <div className="but-3">
+          <p className="grey" style={{ fontSize: "20px" }}>
             Mess Cut History
           </p>
         </div>
         <br />
-        <MessCutsHistory />
-        <div className="car3dis">
-          <div className="disf1">
-            <div className="size5">
-              <p className="bold1" style={{ color: "white" }}>
-                You have reuested mess cut from dd/mm/yy to dd/mm/yy
-              </p>
-            </div>
-            <div className="size6">
-              <p className="bold1" style={{ color: "white" }}>
-                Effective Total
-              </p>
-              <p className="bold2" style={{ fontSize: "25px", color: "white" }}>
-                3.6
-              </p>
-            </div>
-          </div>
+        <div style={{ marginBottom: 100, marginTop: -20 }}>
+          <MessCutsHistory />
         </div>
       </div>
     );
@@ -372,3 +357,21 @@ export default class UserCuts extends Component {
 //   #dc0077,
 //   #e91d64
 // );
+
+// <div className="car3dis">
+// <div className="disf1">
+//   <div className="size5">
+//     <p className="bold1" style={{ color: "white" }}>
+//       You have reuested mess cut from dd/mm/yy to dd/mm/yy
+//     </p>
+//   </div>
+//   <div className="size6">
+//     <p className="bold1" style={{ color: "white" }}>
+//       Effective Total
+//     </p>
+//     <p className="bold2" style={{ fontSize: "25px", color: "white" }}>
+//       3.6
+//     </p>
+//   </div>
+// </div>
+// </div>

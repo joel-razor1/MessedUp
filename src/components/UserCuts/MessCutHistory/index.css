@@ -1,0 +1,23 @@
+.history-main {
+  width: 360px;
+  max-width: 95%;
+  margin: auto;
+}
+
+.history-items {
+  background-color: white;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  font-size: 15px;
+  margin-bottom: 10px;
+}
+
+.history-delete {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-self: center;
+  cursor: pointer;
+  font-size: 18px;
+  color: red;
+}

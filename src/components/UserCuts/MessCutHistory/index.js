@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./index.css";
 import { List, ListItem } from "material-ui/List";
 import { auth, db } from "../../../util/config";
+import { Icon } from "antd";
 
 export default class extends Component {
   constructor(props) {
@@ -47,18 +48,55 @@ export default class extends Component {
 
   render() {
     return (
-      <div className="">
+      <div className="history-main">
         <List>
           {this.state.cuts.map(item => {
             return (
-              <ListItem key={item.key}>
-                <div>
-                  From:
-                  {this.getDate(item.from)}
-                  To:
-                  {this.getDate(item.to)}
+              <div className="history-items" key={item.key}>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-around"
+                  }}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "center"
+                    }}
+                  >
+                    <h3>From:</h3>
+
+                    {this.getDate(item.from)}
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "center"
+                    }}
+                  >
+                    <h3>To:</h3>
+                    {this.getDate(item.to)}
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "center"
+                    }}
+                  >
+                    <h3>Days:</h3>
+
+                    <div style={{ textAlign: "center" }}>{item.count}</div>
+                  </div>
+                  <div className="history-delete">
+                    <Icon type="delete" />
+                  </div>
                 </div>
-              </ListItem>
+              </div>
             );
           })}
         </List>
