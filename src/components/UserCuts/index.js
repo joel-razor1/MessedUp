@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Card, Button, Row, Col, Modal, Tabs, Radio } from "antd";
+import { Card, Button, Row, Col, Modal, Tabs, Radio, message } from "antd";
 import FontIcon from "material-ui/FontIcon";
 import {
   BottomNavigation,
@@ -17,6 +17,8 @@ import d from "../../Res/user.svg";
 import e from "../../Res/edit.svg";
 import f from "../../Res/settings.svg";
 import DatePicker from "material-ui/DatePicker";
+import { auth, db } from "../../util/config";
+import MessCutsHistory from "./MessCutHistory";
 
 //const { RangePicker } = DatePicker;
 const RadioButton = Radio.Button;
@@ -25,6 +27,12 @@ const RadioGroup = Radio.Group;
 const recentsIcon = <Icon type="home" />;
 const favoritesIcon = <Icon type="edit" />;
 const nearbyIcon = <Icon type="setting" />;
+
+Date.prototype.addDays = function(days) {
+  var date = new Date(this.valueOf());
+  date.setDate(date.getDate() + days);
+  return date;
+};
 
 export default class UserCuts extends Component {
   constructor(props) {
@@ -35,7 +43,11 @@ export default class UserCuts extends Component {
       visible: false,
       selectedIndex: 0,
       from: "",
-      to: ""
+      to: "",
+      diff: "",
+      uid: "",
+      mess: "",
+      messno: ""
     };
   }
 
@@ -80,7 +92,17 @@ export default class UserCuts extends Component {
 
   onTo = (e, date) => {
     console.log("to:", date);
-    this.setState({ to: date });
+
+    if (this.state.from != "") {
+      var arr = this.getDates(this.state.from, date);
+      console.log("dif", arr.length);
+
+      this.setState({ to: date, diff: arr.length });
+    }
+
+    this.state.from == ""
+      ? message.warn("Mind selecting the other date?")
+      : null;
   };
 
   onFrom = (e, date) => {
@@ -88,9 +110,98 @@ export default class UserCuts extends Component {
     this.setState({ from: date });
   };
 
-  componentDidMount() {}
+  componentDidMount() {
+    var that = this;
 
-  onMessCut = () => {};
+    auth.onAuthStateChanged(function(user) {
+      if (user) {
+        console.log("user", user.uid);
+
+        that.setState({ uid: user.uid });
+
+        db.ref("users")
+          .child(user.uid)
+          .on("value", function(data) {
+            that.setState({
+              mess: data.val().mess,
+              messno: data.val().messno
+            });
+          });
+      }
+    });
+  }
+
+  onMessCut = () => {
+    var from = this.state.from;
+    var to = this.state.to;
+    var diff = this.state.diff;
+    from != "" && to != "" && diff > 0
+      ? this.onMessCutSuccess(from, to, diff)
+      : message.error("Your'e clearly not taking this seriously");
+  };
+
+  formatNum = n => {
+    return ("0" + n).slice(-2);
+  };
+
+  getDates(startDate, stopDate) {
+    console.log("dated");
+
+    var dateArray = new Array();
+    var currentDate = startDate;
+    while (currentDate <= stopDate) {
+      dateArray.push(new Date(currentDate));
+      currentDate = currentDate.addDays(1);
+    }
+    return dateArray;
+  }
+
+  getDisabledDates = () => {
+    var currentDate = new Date();
+    currentDate.setDate(currentDate.getDate() + 1);
+    return currentDate;
+  };
+
+  onMessCutSuccess = (f, t, diff) => {
+    var that = this;
+    var d = new Date();
+    var arr = this.getDates(f, t);
+    console.log("arr", arr);
+
+    arr.forEach(function(data) {
+      db.ref(that.state.mess)
+        .child("messcuts")
+        .child(data.getYear())
+        .child(data.getMonth())
+        .child(data.getDate())
+        .child(that.state.messno)
+        .set({ num: that.state.messno, time: d.getTime() });
+    });
+
+    var dateFrom = this.formatNum(f.getDate());
+    var monthFrom = this.formatNum(f.getMonth());
+    var yearFrom = f.getYear();
+
+    var dateTo = this.formatNum(t.getDate());
+    var monthTo = this.formatNum(t.getMonth());
+    var yearTo = t.getYear();
+
+    var from = dateFrom + monthFrom + yearFrom;
+    var to = dateTo + monthTo + yearTo;
+
+    var data = {
+      from: "" + f.toDateString(),
+      to: "" + t.toDateString(),
+      count: diff
+    };
+    db.ref(this.state.mess)
+      .child("users")
+      .child("messcuts")
+      .child(this.state.messno)
+      .push()
+      .set(data);
+    message.success("Valar Morghulis");
+  };
 
   render() {
     // const { mode } = this.state;
@@ -120,8 +231,7 @@ export default class UserCuts extends Component {
             <RadioButton
               value="lunch"
               style={{
-                backgroundImage:
-                  "linear-gradient(to right, #6f1a8f, #6b1a8b, #671a87, #641983, #60197f)",
+                backgroundColor: "transparent",
                 color: "white",
 
                 height: 35,
@@ -143,8 +253,7 @@ export default class UserCuts extends Component {
             <RadioButton
               value="dinner"
               style={{
-                backgroundImage:
-                  "linear-gradient(to right, #6f1a8f, #6b1a8b, #671a87, #641983, #60197f)",
+                backgroundColor: "transparent",
                 color: "white",
 
                 height: 35,
@@ -169,6 +278,7 @@ export default class UserCuts extends Component {
             Save my Food
           </div>
         </div>
+
         <div className="car2dis">
           <p className="bold1 " style={{ fontSize: "20px", color: "white" }}>
             Mess Cut
@@ -180,9 +290,11 @@ export default class UserCuts extends Component {
                 width: "100%",
                 color: "white"
               }}
+              locale="en-US"
               inputStyle={{ color: "white" }}
               floatingLabelText="From"
               autoOk={true}
+              minDate={this.getDisabledDates()}
             />
             <hr
               style={{
@@ -199,15 +311,19 @@ export default class UserCuts extends Component {
               inputStyle={{ color: "white" }}
               floatingLabelText="To"
               autoOk={true}
+              locale="en-US"
+              minDate={this.getDisabledDates()}
             />
           </div>
-          <br />
-          <br />
-          <div style={{ display: "flex" }} />
-          <br />
+          <div>
+            {this.state.diff != "" ? (
+              <h3 style={{ color: "white" }}>{this.state.diff} days</h3>
+            ) : null}
+          </div>
           <div
             className="but1 but2"
             style={{
+              marginTop: 10,
               color:
                 "linear-gradient(to right, #7a209c, #6b1c8a, #5d1878, #4f1466, #411055)",
               fontWeight: "bold"
@@ -218,12 +334,14 @@ export default class UserCuts extends Component {
           </div>
         </div>
         <br />
+
         <div className="but3">
           <p className="grey" style={{ fontSize: "20px", color: "white" }}>
             Mess Cut History
           </p>
         </div>
         <br />
+        <MessCutsHistory />
         <div className="car3dis">
           <div className="disf1">
             <div className="size5">
@@ -241,67 +359,16 @@ export default class UserCuts extends Component {
             </div>
           </div>
         </div>
-        <Paper zDepth={1} className="bottomtab" style={{ paddingLeft: "0px" }}>
-          <BottomNavigation selectedIndex={this.state.selectedIndex}>
-            <BottomNavigationItem
-              label="Recents"
-              icon={recentsIcon}
-              onClick={() => this.select(0)}
-            />
-            <BottomNavigationItem
-              label="Favorites"
-              icon={favoritesIcon}
-              onClick={() => this.select(1)}
-            />
-            <BottomNavigationItem
-              label="Nearby"
-              icon={nearbyIcon}
-              onClick={() => this.select(2)}
-            />
-          </BottomNavigation>
-        </Paper>
       </div>
     );
   }
 }
 
-{
-  /* <div className="disf1">
-            <div className="size1">
-              <div className="disf1">
-                <Button
-                  size="large"
-                  className="bold1"
-                  style={{
-                    backgroundImage:
-                      "linear-gradient(to right, #6f1a8f, #6b1a8b, #671a87, #641983, #60197f)",
-                    border: "0px",
-                    color: "white"
-                  }}
-                >
-                  <img className="img-user-cuts" src={b} alt="sun pic" />
-                  Lunch
-                </Button>
-              
-                </div>
-                </div>
-                <div className="size2">
-                  <div className="disf1">
-                    
-                    <Button
-                      size="large"
-                      className="bold1"
-                      style={{
-                        backgroundImage:
-                          "linear-gradient(to right, #561771, #51156b, #4d1265, #481060, #440e5a)",
-                        border: "0px",
-                        color: "white"
-                      }}
-                    >
-                      Dinner
-                      <img className="img-user-cuts" src={a} alt="moon pic" />
-                    </Button>
-                  </div>
-                </div>
-              </div> */
-}
+// background-image: linear-gradient(
+//   to right,
+//   #8d25aa,
+//   #af109b,
+//   #c9008a,
+//   #dc0077,
+//   #e91d64
+// );

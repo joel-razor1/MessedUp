@@ -79,8 +79,9 @@ export default class extends Component {
               email: that.state.email,
               messno: that.state.messno,
               mess: that.state.mess,
-              mob: that.state.mob,
-              dep: that.state.dep
+              phone: that.state.mob,
+              dept: that.state.dep,
+              foodpref: "non"
             };
             db.ref("users")
               .child(that.state.uid)

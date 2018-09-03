@@ -6,22 +6,22 @@
   width: 360px;
   max-width: 95%;
   border-radius: 18px;
-  background-image: linear-gradient(
-    to right,
-    #7a209c,
-    #6b1c8a,
-    #5d1878,
-    #4f1466,
-    #411055
+  background-image: radial-gradient(
+    circle farthest-corner at 10% 20%,
+    rgba(224, 191, 53, 1) 0%,
+    rgba(244, 123, 123, 1) 90%
   );
   display: flex;
   flex-direction: column;
   padding: 20px;
   margin: auto;
-  margin-top: 10px;
   justify-content: space-between;
   align-items: center;
-  min-height: 200px;
+  border: 0px;
+  margin-top: 10px;
+  min-height: 220px;
+
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 .but1 {
   background-color: #fff;
@@ -80,15 +80,8 @@
 .car2dis {
   width: 360px;
   max-width: 95%;
-  border-radius: 15px;
-  background-image: linear-gradient(
-    to right,
-    #8d25aa,
-    #af109b,
-    #c9008a,
-    #dc0077,
-    #e91d64
-  );
+  border-radius: 18px;
+  background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   display: flex;
   flex-direction: column;
   padding: 20px;
@@ -96,8 +89,10 @@
   justify-content: center;
   align-items: center;
   margin: auto;
+  border: 0px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   min-height: 200px;
-  margin-top: 40px;
+  margin-top: 20px;
 }
 .car3dis {
   width: 360px;
