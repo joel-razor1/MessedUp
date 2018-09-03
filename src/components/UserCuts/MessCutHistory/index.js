@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./index.css";
 import { List, ListItem } from "material-ui/List";
 import { auth, db } from "../../../util/config";
-import { Icon } from "antd";
+import { Icon, Popconfirm } from "antd";
 
 export default class extends Component {
   constructor(props) {
@@ -32,7 +32,7 @@ export default class extends Component {
           };
           cuts.push(d);
         });
-        that.setState({ cuts });
+        that.setState({ cuts: cuts.reverse() });
         console.log("cuts", cuts);
       });
   }
@@ -44,6 +44,16 @@ export default class extends Component {
     return (
       "" + date.getDate() + "-" + date.getMonth() + "-" + date.getFullYear()
     );
+  };
+
+  onDelete = key => {
+    console.log("keyed", key);
+    db.ref(this.state.mess)
+      .child("users")
+      .child("messcuts")
+      .child(this.state.messno)
+      .child(key)
+      .remove();
   };
 
   render() {
@@ -92,8 +102,16 @@ export default class extends Component {
 
                     <div style={{ textAlign: "center" }}>{item.count}</div>
                   </div>
+
                   <div className="history-delete">
-                    <Icon type="delete" />
+                    <Popconfirm
+                      title="Are you sure？"
+                      okText="Yes"
+                      cancelText="No"
+                      onConfirm={this.onDelete.bind(this, item.key)}
+                    >
+                      <Icon type="delete" />
+                    </Popconfirm>
                   </div>
                 </div>
               </div>
