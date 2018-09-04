@@ -47,7 +47,7 @@ export default class UserCuts extends Component {
       diff: "",
       uid: "",
       mess: "",
-      messno: ""
+      messno: "",
     };
   }
 
@@ -111,10 +111,12 @@ export default class UserCuts extends Component {
   };
 
   componentDidMount() {
-    var that = this;
-
+    var that = this ;
     auth.onAuthStateChanged(function(user) {
       if (user) {
+
+        console.log("mess",that.state.mess);
+
         console.log("user", user.uid);
 
         that.setState({ uid: user.uid });
@@ -124,9 +126,11 @@ export default class UserCuts extends Component {
           .on("value", function(data) {
             that.setState({
               mess: data.val().mess,
-              messno: data.val().messno
+              messno: data.val().messno ,
+              uid : user.uid ,
             });
           });
+
       }
     });
   }
@@ -154,6 +158,37 @@ export default class UserCuts extends Component {
       currentDate = currentDate.addDays(1);
     }
     return dateArray;
+  }
+
+  onLunch = () => {
+    message.success("Sorry this feature is not available");
+  }
+
+  onDinner = () => {
+
+  }
+
+  onLateMess = () => {
+
+    var date = new Date() ;
+    var year = date.getFullYear();
+    year = year - 1900 ;
+    var month = date.getMonth();
+    var day = date.getDate() ;
+    var uid = this.state.uid ;
+    var messno = this.state.messno ;
+
+    db.ref('sahara')
+      .child('latemess')
+      .child(year)
+      .child(month)
+      .child(day)
+      .child('dinner')
+      .child(this.state.uid).set({
+        num : this.state.messno ,
+        time : date.getTime() ,
+      })
+
   }
 
   getDisabledDates = () => {
@@ -233,10 +268,10 @@ export default class UserCuts extends Component {
               style={{
                 backgroundColor: "transparent",
                 color: "white",
-
                 height: 35,
                 width: "45%"
               }}
+              onClick={this.onLunch}
             >
               <img className="img-user-cuts" src={b} alt="sun pic" />
               Lunch
@@ -255,10 +290,10 @@ export default class UserCuts extends Component {
               style={{
                 backgroundColor: "transparent",
                 color: "white",
-
                 height: 35,
                 width: "45%"
               }}
+              onClick={this.onDinner}
             >
               <img className="img-user-cuts" src={a} alt="sun pic" />
               Dinner
@@ -274,6 +309,7 @@ export default class UserCuts extends Component {
                 "linear-gradient(to right, #7a209c, #6b1c8a, #5d1878, #4f1466, #411055)",
               fontWeight: "bold"
             }}
+            onClick={this.onLateMess}
           >
             Save my Food
           </div>

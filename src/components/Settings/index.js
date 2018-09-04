@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import "./index.css";
 import logo from "../../Res/logo_text_w.png";
-import { Switch, Button, Icon, message } from "antd";
+import { Switch, Button, Icon, message ,Spin} from "antd";
+import { auth, db } from "../../util/config.js";
 import { Link } from "react-router-dom";
-import { auth } from "../../util/config";
 import joel from "../../Res/joel.jpg"
 import cj from "../../Res/cj.jpg"
 import sn from "../../Res/sn.jpg"
@@ -58,12 +58,33 @@ export default class extends Component {
     super(props);
     this.state = {
       display: false,
-      checked: true
+      checked: true ,
+      uid : "" ,
+      done:false ,
+      messno : 0 ,
     };
   }
+
+  componentDidMount(){
+    var that = this ;
+    auth.onAuthStateChanged(function(user){
+      if(user){
+        db.ref('users').child(user.uid).on("value", function(data){
+          that.setState({uid : user.uid , messno : data.val().messno})
+          if(data.val().foodpref === "veg"){
+            that.setState({checked:false})
+            console.log("false",false);
+          }
+          that.setState({done:true})
+        })
+      }
+    })
+  }
+
   onDisplay = () => {
     this.setState({ display: !this.state.display });
   };
+
   onSignout = () => {
     auth
       .signOut()
@@ -76,11 +97,29 @@ export default class extends Component {
         message.error("This is a message of error");
       });
   };
+
   onFood = e => {
-    console.log("foodpref");
+    console.log("foodpref",e);
+    var uid = this.state.uid ;
+    var messno = this.state.messno ;
     this.setState({ checked: e });
+    // db.ref('sahara').child('users').child('mess').child('${this.state.messno}').on("value",function(data){
+    //   if( e === true ){
+    //     data.foodpref = "veg" ;
+    //   }
+    //   else{
+    //     data.foodpref = "non" ;
+    //   }
+    // })
+    console.log("uid",uid);
+
+    db.ref('users').child(uid).child('foodpref').set(e?'non':'veg');
+    db.ref('sahara').child('users').child('mess').child(messno).child('foodpref').set(e?'non':'veg');
   };
+
   render() {
+    var checked = this.state.checked ;
+    // console.log("check",checked);
     return (
       <div className="settings-main">
         <h3 style={{ color: "white", fontSize: 22 }}>Settings</h3>
@@ -88,12 +127,13 @@ export default class extends Component {
         <hr style={{ width: "90%", color: "#e6e6e6", opacity: "0.5" }} />
         <div className="settings-sub">
           <h3 style={{ color: "#fff" }}>Food Preference</h3>{" "}
-          <Switch
-            checked={this.state.checked}
+          {this.state.done?<Switch
             checkedChildren="Non-Veg"
             unCheckedChildren="Veg"
+            checked={this.state.checked?true:false}
             onChange={this.onFood}
-          />
+            defaultChecked={true}
+          />:<Spin />}
         </div>
         <hr style={{ width: "90%", color: "#fff", opacity: "0.5" }} />
         <div>
@@ -120,7 +160,7 @@ export default class extends Component {
                 <div style={{ display: "flex", marginTop: "-35px" }}>
                   <div class="tc pa4" >
                     <img src={cj} class="br-100  h3 w3" alt="avatar" />
-                   <h6 style={{color:"white"}}>Akshay CJ</h6> 
+                   <h6 style={{color:"white"}}>Akshay CJ</h6>
                   </div>
                   <div class="tc pa4">
                     <img src="http://tachyons.io/img/logo.jpg" class="br-100  h3 w3" alt="avatar" />
