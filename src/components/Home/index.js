@@ -25,6 +25,7 @@ export default class Home extends Component {
       userDep: "",
       mess: "",
       uid: "",
+      foodpref : "" ,
       loading: true
     };
   }
@@ -61,10 +62,11 @@ export default class Home extends Component {
             that.setState({
               userName: data.val().name,
               userEmail: data.val().email,
-              userMobile: data.val().mob,
+              userMobile: data.val().phone,
               userMessNo: data.val().messno,
-              userDep: data.val().dep,
-              mess: data.val().mess
+              userDep: data.val().dept,
+              mess: data.val().mess,
+              foodpref : data.val().foodpref,
             });
             that.fetchNotices();
           });
@@ -123,7 +125,7 @@ export default class Home extends Component {
                 </div>
                 <div className="displayinflx">
                   <div>
-                    <p style={{ color: "white" }}>Non-veg</p>
+                    <p style={{ color: "white" }}>{this.state.foodpref}</p>
                   </div>
                   <div className="marginl1">
                     <p style={{ color: "white" }}>Messcut 2</p>
