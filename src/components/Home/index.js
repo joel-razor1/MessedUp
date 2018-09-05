@@ -8,6 +8,10 @@ import c from "../../Res/settings.svg";
 import d from "../../Res/joel.jpg";
 import e from "../../Res/cash.png";
 import { auth, db } from "../../util/config.js";
+import TweenOne from "rc-tween-one";
+import Children from "rc-tween-one/lib/plugin/ChildrenPlugin";
+
+TweenOne.plugins.push(Children);
 
 export default class Home extends Component {
   constructor(props) {
@@ -25,8 +29,14 @@ export default class Home extends Component {
       userDep: "",
       mess: "",
       uid: "",
+<<<<<<< Updated upstream
       foodpref : "" ,
       loading: true
+=======
+      loading: true,
+      bill: "1500",
+      animation: null
+>>>>>>> Stashed changes
     };
   }
 
@@ -55,6 +65,16 @@ export default class Home extends Component {
         console.log("user", user.uid);
 
         that.setState({ uid: user.uid });
+        that.setState({
+          animation: {
+            Children: {
+              value: that.state.bill || 10000,
+              floatLength: 2,
+              formatMoney: true
+            },
+            duration: 1000
+          }
+        });
 
         db.ref("users")
           .child(user.uid)
@@ -135,9 +155,13 @@ export default class Home extends Component {
             </Col>
             <Col span={8}>
               <div className="userdetail2">
-                <p style={{ color: "white" }} className="bold3">
-                  1500
-                </p>
+                <TweenOne
+                  style={{ color: "white", fontSize: 24 }}
+                  className="bold3"
+                  animation={this.state.animation}
+                >
+                  0
+                </TweenOne>
                 <p style={{ color: "white" }} className="nobold4">
                   Due till date
                 </p>
@@ -192,9 +216,7 @@ export default class Home extends Component {
                   </text>
                 </div>
                 <div className="marginless1">
-                  <p style={{ color: "white" }} className="roundtext15">
-                    {date1.getDate()}
-                  </p>
+                  <p className="roundtext15">{date1.getDate()}</p>
                 </div>
               </div>
             </div>
@@ -210,9 +232,7 @@ export default class Home extends Component {
                   </text>
                 </div>
                 <div className="marginless1">
-                  <p style={{ color: "white" }} className="roundtext15">
-                    {date2.getDate()}
-                  </p>
+                  <p className="roundtext15">{date2.getDate()}</p>
                 </div>
               </div>
             </div>

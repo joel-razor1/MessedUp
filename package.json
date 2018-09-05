@@ -9,6 +9,7 @@
     "font-awesome": "^4.7.0",
     "history": "^4.7.2",
     "material-ui": "^0.20.2",
+    "rc-tween-one": "^2.2.4",
     "react": "^16.4.0",
     "react-app-rewired": "^1.5.2",
     "react-dom": "^16.4.0",

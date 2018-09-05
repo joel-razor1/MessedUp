@@ -12,7 +12,6 @@ import { Redirect } from "react-router-dom";
 import "./index.css";
 import a from "../../Res/moon.png";
 import b from "../../Res/sun.png";
-import c from "../../Res/calander.png";
 import d from "../../Res/user.svg";
 import e from "../../Res/edit.svg";
 import f from "../../Res/settings.svg";
@@ -211,6 +210,22 @@ export default class UserCuts extends Component {
         .child(data.getDate())
         .child(that.state.messno)
         .set({ num: that.state.messno, time: d.getTime() });
+      db.ref(that.state.mess)
+        .child("users")
+        .child("cuts")
+
+        .child(data.getYear())
+
+        .child(data.getMonth())
+        .child(that.state.messno)
+        .child(data.getDate())
+        .set({
+          y: data.getYear(),
+          d: data.getDate(),
+          m: data.getMonth(),
+          time: d.getTime(),
+          ds: data.toDateString()
+        });
     });
 
     var dateFrom = this.formatNum(f.getDate());
@@ -378,7 +393,11 @@ export default class UserCuts extends Component {
         </div>
         <br />
         <div style={{ marginBottom: 100, marginTop: -20 }}>
-          <MessCutsHistory />
+          <MessCutsHistory
+            uid={this.state.uid}
+            mess={this.state.mess}
+            num={this.state.messno}
+          />
         </div>
       </div>
     );
