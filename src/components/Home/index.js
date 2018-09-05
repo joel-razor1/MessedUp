@@ -29,14 +29,10 @@ export default class Home extends Component {
       userDep: "",
       mess: "",
       uid: "",
-<<<<<<< Updated upstream
-      foodpref : "" ,
-      loading: true
-=======
+      foodpref: "",
       loading: true,
       bill: "1500",
       animation: null
->>>>>>> Stashed changes
     };
   }
 
@@ -86,7 +82,7 @@ export default class Home extends Component {
               userMessNo: data.val().messno,
               userDep: data.val().dept,
               mess: data.val().mess,
-              foodpref : data.val().foodpref,
+              foodpref: data.val().foodpref
             });
             that.fetchNotices();
           });
