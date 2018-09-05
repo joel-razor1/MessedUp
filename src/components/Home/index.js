@@ -29,8 +29,11 @@ export default class Home extends Component {
       userDep: "",
       mess: "",
       uid: "",
+<<<<<<< Updated upstream
       foodpref: "",
       displayFoodpref : "" ,
+=======
+>>>>>>> Stashed changes
       loading: true,
       bill: "1500",
       animation: null
