@@ -29,11 +29,8 @@ export default class Home extends Component {
       userDep: "",
       mess: "",
       uid: "",
-<<<<<<< Updated upstream
       foodpref: "",
-      displayFoodpref : "" ,
-=======
->>>>>>> Stashed changes
+      displayFoodpref: "",
       loading: true,
       bill: "1500",
       animation: null
@@ -95,14 +92,13 @@ export default class Home extends Component {
   }
 
   fetchNotices = () => {
-
-    if(this.state.foodpref === "veg"){
-      this.setState({displayFoodpref:"Veg"})
+    if (this.state.foodpref === "veg") {
+      this.setState({ displayFoodpref: "Veg" });
     }
-    if(this.state.foodpref === "non"){
-      this.setState({displayFoodpref:"Non-Veg"})
+    if (this.state.foodpref === "non") {
+      this.setState({ displayFoodpref: "Non-Veg" });
     }
-    console.log("displayFoodpref",this.state.displayFoodpref);
+    console.log("displayFoodpref", this.state.displayFoodpref);
 
     var that = this;
     db.ref(this.state.mess)
@@ -118,7 +114,6 @@ export default class Home extends Component {
   };
 
   render() {
-
     const monthNames = [
       "JAN",
       "FEB",
@@ -155,7 +150,9 @@ export default class Home extends Component {
                 </div>
                 <div className="displayinflx">
                   <div>
-                    <p style={{ color: "white" }}>{this.state.displayFoodpref}</p>
+                    <p style={{ color: "white" }}>
+                      {this.state.displayFoodpref}
+                    </p>
                   </div>
                   <div className="marginl1">
                     <p style={{ color: "white" }}>Messcut 2</p>
