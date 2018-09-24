@@ -15,3 +15,13 @@ export const provider = new firebase.auth.GoogleAuthProvider();
 export const auth = firebase.auth();
 export const db = firebase.database();
 export const fb = firebase;
+
+export const isAuthenticated = () => {
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+      return true;
+    } else {
+      return false;
+    }
+  });
+};

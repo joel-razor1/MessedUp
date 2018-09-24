@@ -10,6 +10,7 @@ import e from "../../Res/cash.png";
 import { auth, db } from "../../util/config.js";
 import TweenOne from "rc-tween-one";
 import Children from "rc-tween-one/lib/plugin/ChildrenPlugin";
+import { Redirect } from "react-router-dom";
 
 TweenOne.plugins.push(Children);
 
@@ -33,7 +34,8 @@ export default class Home extends Component {
       displayFoodpref: "",
       loading: true,
       bill: "1500",
-      animation: null
+      animation: null,
+      redirect: false
     };
   }
 
@@ -87,6 +89,8 @@ export default class Home extends Component {
             });
             that.fetchNotices();
           });
+      } else {
+        that.setState({ redirect: true });
       }
     });
   }
@@ -249,6 +253,7 @@ export default class Home extends Component {
             </div>
           </div>
         )}
+        {this.state.redirect ? <Redirect to="/" /> : null}
       </div>
     );
   }
