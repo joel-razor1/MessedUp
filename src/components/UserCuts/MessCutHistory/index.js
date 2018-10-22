@@ -8,15 +8,35 @@ export default class extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      uid: "J71tA5o0C9OyUXzBEtXpNBndX052",
-      mess: "sahara",
-      messno: "444",
+      uid: "",
+      mess: "",
+      messno: "",
       cuts: [],
       loading: true
     };
   }
 
   componentDidMount() {
+    var that = this;
+    auth.onAuthStateChanged(function(user) {
+      if (user) {
+        that.setState({ uid: user.uid });
+        that.getUser();
+      }
+    });
+  }
+
+  getUser = () => {
+    var that = this;
+    db.ref("users")
+      .child(this.state.uid)
+      .on("value", function(data) {
+        const d = data.val();
+        that.setState({ mess: d.mess, messno: d.messno });
+        that.getCuts();
+      });
+  };
+  getCuts = () => {
     var that = this;
     db.ref(this.state.mess)
       .child("users")
@@ -36,8 +56,7 @@ export default class extends Component {
         that.setState({ cuts: cuts.reverse(), loading: false });
         console.log("cuts", cuts);
       });
-  }
-
+  };
   getDate = d => {
     var date = new Date(d);
     console.log("date", date);
